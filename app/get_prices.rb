@@ -1,4 +1,5 @@
 require '../helper/required.rb'
+require 'nokogiri'
 
 class GetPrices
 
@@ -6,22 +7,18 @@ class GetPrices
     @prices = get_prices(html)
   end
 
-  def lowest_price
+  def lowest_price 
+    puts @prices 
     @prices.sort[0]
   end
 
   private
 
   def get_prices(html)
-    price_array = []
-    array = html.split
-    array.each do |word|
-      match = word.match(/([0-9][0-9]\.[0-9][0-9])/)
-      if match
-        price_array.push(match.captures[0].to_f)
-      end
-    end
-    price_array
+    doc = Nokogiri::HTML(html)
+    price_string = doc.css('span').text.strip
+    price_array = price_string.gsub("$","").split
+    price_array.map { |price| price.to_f}
   end
 
 
