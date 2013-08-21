@@ -6,10 +6,6 @@ require '../app/get_prices.rb'
 
 class GetPricesTest < Test::Unit::TestCase
 
- 
-  #   @text = File.read('../helper/test_file.txt')
-  
-
   def get_prices(html)
     GetPrices.new(html)
   end
