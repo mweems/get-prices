@@ -11,9 +11,9 @@ class GetPricesTest < Test::Unit::TestCase
   end
 
   def test_lowest_price_finds_a_single_price
-    html = <<-HTML
+       html = <<-HTML
     <html><body>
-    <span class='a-size-large a-color-price olpOfferPrice a-text-bold'>        $14.85    </span>
+    <div class='psliprice'><b>$14.85</b></div>    
     </body></html>
     HTML
     assert_equal(14.85, get_prices(html).lowest_price)
@@ -22,9 +22,9 @@ class GetPricesTest < Test::Unit::TestCase
   def test_lowest_price_returns_smallest_amount
     html = <<-HTML
     <html><body>
-    <span class='a-size-large a-color-price olpOfferPrice a-text-bold'>        $14.85    </span>
-    <span class='a-size-large a-color-price olpOfferPrice a-text-bold'>        $12.85    </span>
-    <span class='a-size-large a-color-price olpOfferPrice a-text-bold'>        $17.85    </span>    
+    <div class='psliprice'><b>$14.85</b></div>    
+    <div class='psliprice'><b>$12.85</b></div>    
+    <div class='psliprice'><b>$17.85</b></div>    
     </body></html>
     HTML
 
@@ -32,12 +32,12 @@ class GetPricesTest < Test::Unit::TestCase
   end
 
   def test_get_prices_ignores_numbers_that_arent_prices
-    html = <<-HTML
+       html = <<-HTML
     <html><body>
-    <span class='a-size-large a-color-price olpOfferPrice a-text-bold'>        $14.85    </span>
-    <span class='a-size-large a-color-price olpOfferPrice a-text-bold'>        $12.85    </span>
-    <span class='a-size-large a-color-price olpOfferPrice a-text-bold'>        $17.85    </span>
-    <span>        $11.85    </span>    
+    <div class='psliprice'><b>$14.85</b></div>    
+    <div class='psliprice'><b>$12.85</b></div>    
+    <div class='psliprice'><b>$17.85</b></div>    
+    <div class='psliprice'><a>$11.75</a></div>    
     </body></html>
     HTML
 

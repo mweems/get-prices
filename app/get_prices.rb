@@ -3,8 +3,8 @@ require 'nokogiri'
 
 class GetPrices
 
-  def initialize(html)
-    @prices = get_prices(html)
+  def initialize(url)
+    @prices = get_prices(url)
   end
 
   def lowest_price  
@@ -13,11 +13,12 @@ class GetPrices
 
   private
 
-  def get_prices(html)
-    doc = Nokogiri::HTML(html)
-    price_string = doc.css("span[class]").text.strip
-    price_array = price_string.gsub("$","").split
-    price_array.map { |price| price.to_f}
+  def get_prices(url)
+    doc = Nokogiri::HTML(url)
+    price_array = []
+    price_string = doc.css("div.psliprice b")
+    price_string.map{|price| price_array << price.text}
+    price_array.map{|price| price.gsub("$","").to_f}
   end
 
 

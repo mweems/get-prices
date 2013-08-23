@@ -6,7 +6,7 @@ class CheckPrice
     @price = price
   end
 
-  def is_less_than?(amount)
+  def can_buy?(amount)
     @price <= amount
   end
 
